@@ -17,11 +17,12 @@ Figure 1 High Bias Feedforward-Feedback Configuration to handle the varying load
 
 
 <img width="1917" height="935" alt="image" src="https://github.com/user-attachments/assets/88c46a66-bf40-4933-9dde-164a973f75ad" />
+Figure 2 The system response at lower load 
 
 <img width="1917" height="925" alt="image" src="https://github.com/user-attachments/assets/244b3806-1dc1-42ab-9b1f-29c9565cab66" />
-
+Figure 3 Another system response At the same load  
 <img width="1917" height="926" alt="image" src="https://github.com/user-attachments/assets/1d81a71d-c90a-41bf-9f25-2f2c29c6c715" />
-
+Figure 4 The system response at highr mechanical load but still under the calibration base line
 
 
 
