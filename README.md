@@ -9,10 +9,13 @@ Standard feedback loops battle massive non-linear hysteresis alone, while typica
 This project solves this architectural flaw by utilizing a **High-Bias Feedforward Calibration Framework** bound by real-world hardware limits. By calibrating the 1-D First-Order Reversal Curve (FORC) lookup arrays at a maximum load baseline (e.g., $70\text{ m}^{-1}$) structurally higher than all intended operating profiles (e.g., shifting between $62\text{ m}^{-1}$ and $52\text{ m}^{-1}$):
 1. **Elimination of Input Inversion**: The desired operating envelope sits entirely below the calibration ceiling. Moving toward any target position strictly implies a trajectory of thermal contraction, ensuring the feedforward map always outputs a well-aligned, proactive heating command.
 2. **High-Bias Feedforward Core**: The lookup tables operate with an inherent "high bias," outputting the maximum necessary baseline voltage required for worst-case loading states to rapidly overcome thermal deadbands.
-3. **Hardware-Enforced Safety Overrides**: The controller operates with a strict, hardware-enforced limit capped at **2 Volts**. This hard ceiling absorbs the overheating risk of a high-bias feedforward architecture, providing an intrinsic safety clamp against crystalline degradation.
-4. **Auxiliary Feedback Trim**: A negative-gain PI loop operates in parallel to dynamically act as a cooling or adjustment trim. Because the fixed 2V limit and convective cooling create an unyielding physical thermodynamic bottleneck, the auxiliary feedback loop is heavily bound by anti-windup clamping to cleanly stabilize the system the moment the wire catches up to its physics-limited destination.
 
----
+3. **Auxiliary Feedback Trim**: A negative-gain PI loop operates in parallel to dynamically act as a cooling or adjustment trim. Because the fixed 2V limit and convective cooling create an unyielding physical thermodynamic bottleneck, the auxiliary feedback loop is heavily bound by anti-windup clamping to cleanly stabilize the system the moment the wire catches up to its physics-limited destination.
+
+---<img width="1682" height="665" alt="image" src="https://github.com/user-attachments/assets/bd46ca61-17fd-40ce-a6a1-03e14cd3976d" />
+<img width="1917" height="935" alt="image" src="https://github.com/user-attachments/assets/88c46a66-bf40-4933-9dde-164a973f75ad" />
+
+
 
 ## 🚀 Pipeline & File Architecture
 
