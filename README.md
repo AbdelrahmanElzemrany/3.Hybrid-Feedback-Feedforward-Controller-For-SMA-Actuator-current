@@ -12,7 +12,8 @@ This project solves this architectural flaw by utilizing a **High-Bias Feedforwa
 
 3. **Auxiliary Feedback Trim**: A negative-gain PI loop operates in parallel to dynamically act as a cooling or adjustment trim. Because the fixed 2V limit and convective cooling create an unyielding physical thermodynamic bottleneck, the auxiliary feedback loop is heavily bound by anti-windup clamping to cleanly stabilize the system the moment the wire catches up to its physics-limited destination.
 
-<img width="1800" height="737" alt="image" src="https://github.com/user-attachments/assets/4223ed9b-d209-4983-858f-e3b9142e4cf2" />
+<img width="1803" height="740" alt="image" src="https://github.com/user-attachments/assets/ccc1ffd5-695f-46ee-b141-550e960a3d41" />
+
 
 <img width="1917" height="935" alt="image" src="https://github.com/user-attachments/assets/88c46a66-bf40-4933-9dde-164a973f75ad" />
 
