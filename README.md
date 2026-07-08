@@ -20,6 +20,9 @@ This project solves this architectural flaw by utilizing a **High-Bias Feedforwa
 
 <img width="1917" height="925" alt="image" src="https://github.com/user-attachments/assets/244b3806-1dc1-42ab-9b1f-29c9565cab66" />
 
+<img width="1917" height="926" alt="image" src="https://github.com/user-attachments/assets/1d81a71d-c90a-41bf-9f25-2f2c29c6c715" />
+
+
 
 
 
