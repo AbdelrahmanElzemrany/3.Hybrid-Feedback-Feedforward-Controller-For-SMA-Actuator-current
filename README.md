@@ -1,27 +1,25 @@
-[Click here and press view raw to download and view the integrated control loop video.](A%20hybrid_Feedback_Feedforward_controller%20fe.mp4)
+# Hybrid High-Bias Feedforward-Feedback Controller for SMA Actuators
 
-# Hybrid-Feedback-Feedforward-Controller
+An end-to-end electro-thermal modeling framework and hybrid high-bias feedforward-feedback control architecture to validate Joule heating dynamics in integrated Shape Memory Alloy (SMA) bending actuators. Built using Simulink, Simscape Multibody, and MATLAB.
 
-An end-to-end electro-thermal modeling framework and hybrid feedforward-feedback control architecture to validate Joule heating dynamics in integrated Shape Memory Alloy (SMA) bending actuators. Built using Simulink, Simscape Multibody, and MATLAB.
 ## 📝 Project Overview
 
-While path-dependent feedforward architectures driven by First-Order Reversal Curve (FORC) lookup arrays can cancel out baseline material hysteresis, they operate blindly under fixed environmental assumptions. In real-world applications, SMA actuators are subjected to **varying operational loads and external mechanical disturbances**. Because mechanical stress directly alters the material's internal thermodynamic state and shifts its underlying phase-transition temperatures, a pure feedforward controller will suffer from significant steady-state tracking offsets whenever the real-world load deviates from the initial calibration baseline.
+Standard feedback loops battle massive non-linear hysteresis alone, while typical 1-D feedforward maps suffer from input-inversion and state-misalignment under varying operational loads. When an SMA wire is operated under loads higher than its calibration baseline, the stress-induced upward shift in phase-transformation temperatures causes standard feedforward tables to output a cool command instead of the required heating command. 
 
-This project solves this limitation by developing an end-to-end **hybrid feedforward-feedback control framework**. Instead of forcing a reactive feedback loop to battle massive non-linear hysteresis alone, or relying entirely on an unadaptable feedforward map, this hybrid architecture splits the control effort into two complementary tasks:
-* **The Dominant Feedforward Core**: Employs computationally efficient 1-D FORC lookup arrays to compute and instantaneously deliver the bulk of the non-linear voltage required to drive the material phase fractions.
-* **The Auxiliary Feedback Trim**: Layers a negative-gain PI loop over the system to dynamically capture and cancel out the small, unmodeled tracking errors induced by fluctuating mechanical loads and external disturbances.
+This project solves this architectural flaw by utilizing a **High-Bias Feedforward Calibration Framework** bound by real-world hardware limits. By calibrating the 1-D First-Order Reversal Curve (FORC) lookup arrays at a maximum load baseline (e.g., $70\text{ m}^{-1}$) structurally higher than all intended operating profiles (e.g., shifting between $62\text{ m}^{-1}$ and $52\text{ m}^{-1}$):
+1. **Elimination of Input Inversion**: The desired operating envelope sits entirely below the calibration ceiling. Moving toward any target position strictly implies a trajectory of thermal contraction, ensuring the feedforward map always outputs a well-aligned, proactive heating command.
+2. **High-Bias Feedforward Core**: The lookup tables operate with an inherent "high bias," outputting the maximum necessary baseline voltage required for worst-case loading states to rapidly overcome thermal deadbands.
+3. **Hardware-Enforced Safety Overrides**: The controller operates with a strict, hardware-enforced limit capped at **2 Volts**. This hard ceiling absorbs the overheating risk of a high-bias feedforward architecture, providing an intrinsic safety clamp against crystalline degradation.
+4. **Auxiliary Feedback Trim**: A negative-gain PI loop operates in parallel to dynamically act as a cooling or adjustment trim. Because the fixed 2V limit and convective cooling create an unyielding physical thermodynamic bottleneck, the auxiliary feedback loop is heavily bound by anti-windup clamping to cleanly stabilize the system the moment the wire catches up to its physics-limited destination.
 
-By combining these two strategies, the controller achieves exceptional trajectory tracking precision across variable load spaces, ensuring robust stability without requiring high feedback gains that would otherwise cause actuator saturation or overshoot.
-
-
-This repository is dedicated to the integration of the electro-thermal Joule heating system into a hybrid control framework driven by FORC-extracted feedforward lookup tables and an auxiliary feedback loop.
+---
 
 ## 🚀 Pipeline & File Architecture
 
-The repository is structured to take the system from raw thermodynamic equations to a verified controller tracking trajectories under varying operational loads:
+The repository is structured to implement and verify this high-bias control methodology under strict physical boundaries:
 
-### 1. Trajectory Mapping & Data Calibration
-* **`sma_pure_1d_switching.mat`**: MATLAB workspace data file containing the 1-D lookup tables extracted via First-Order Reversal Curve (FORC) measurements to capture the core non-linear phase physics of the system.
+### 1. High-Bias Trajectory Calibration
+* **`sma_pure_1d_switching.mat`**: MATLAB workspace data file containing the 1-D lookup tables extracted via First-Order Reversal Curve (FORC) measurements. The data arrays are explicitly calibrated at the maximum load ceiling ($70\text{ m}^{-1}$) to establish the high-bias forward-transformation (heating) and reverse-transformation (cooling) pathways.
 
-### 2. Hybrid Control Integration & Simulation
-* **`Hybrid_Feedback_Feedforwardcontroller.slx`**: The fully integrated multi-physics system. Implements a hybrid control strategy where the computationally efficient FORC 1-D lookup tables serve as the dominant feedforward driving force, while an auxiliary negative-gain PI controller dynamically compensates for tracking errors induced by varying mechanical loads.
+### 2. Control Integration & Hard-Capped Simulation
+* **`Hybrid_Feedback_Feedforwardcontroller.slx`**: The fully integrated multi-physics system in Simulink. Implements the parallel architecture where the high-bias 1-D lookup block delivers dominant voltage commands, while the auxiliary negative-gain PI loop trims transient errors. Includes a strict 2V saturation clamp and an active conditional integration anti-windup block to manage the physical thermal lag smoothly without causing software-induced overshoots.
