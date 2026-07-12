@@ -22,7 +22,7 @@ Figure 2 The system response at lower load.
 <img width="1917" height="925" alt="image" src="https://github.com/user-attachments/assets/244b3806-1dc1-42ab-9b1f-29c9565cab66" />
 Figure 3 Another system response at the same mechanical load  
 <img width="1917" height="926" alt="image" src="https://github.com/user-attachments/assets/1d81a71d-c90a-41bf-9f25-2f2c29c6c715" />
-Figure 4 The system response at higher mechanical load but still under the calibration base line
+
 
 
 
